@@ -1,0 +1,115 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "api de atendimento"
+  description: "Tem como objetivo salvar atendimento de um paciente"
+host: "localhost:8080"
+schemes:
+  - https
+tags:
+  - name: "AtendimentoController"
+paths:
+  /atendimento/{idPaciente}:
+    get:
+      tags:
+        - "AtendimentoController"
+      summary: "buscar atendimento por Id do paciente"
+      operationId: "findByPaciente"
+      produces:
+        - application/json
+      description: "Esta operação tem como objetivo buscar atendimento por id do paciente"
+      parameters:
+        - in: "path"
+          name: "idPaciente"
+          type: integer
+          format: int64
+          required: true
+          description: "Id do paciente"
+      responses:
+        200:
+          description: "ok"
+          schema:
+            $ref: "#/definitions/AtendimentoDTO"
+        400:
+          description: "Consulta inválida"
+        401:
+          description: "Não foi possível credenciais para autenticação inválida"
+        404:
+          description: "Paciente não encontrado"
+        500:
+          description: "Erro interno"
+  /atendimento:
+    post:
+      tags:
+        - "AtendimentoController"
+      summary: "Cadastrar atendimento"
+      operationId: "save"
+      produces:
+        - application/json
+      description: "Esta operacao tem como objetivo cadastrar atendimento"
+      parameters:
+        - in: "body"
+          name: "atendimentoRequest"
+          required: true
+          description: "Cadastrar atendimento"
+          schema:
+            $ref: "#/definitions/AtendimentoRequest"
+      responses:
+        201:
+          description: "create"
+        400:
+          description: "Consulta inválida"
+        401:
+          description: "Não foi possível credenciais para autenticação inválida"
+        404:
+          description: "Atendimento não encontrada"
+        500:
+          description: "Erro interno"
+definitions:
+  AtendimentoDTO:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: "Identificador do atendimento"
+      data:
+        type: string
+        format: dateTime
+        description: "Hora que o atendimento foi cadastrado"
+      idPaciente:
+        type: integer
+        format: int64
+        description: "Id do paciente"
+      idVacina:
+        type: integer
+        format: int64
+        description: "Id da vacina"
+  AtendimentoRequest:
+    type: object
+    required:
+      - idPaciente
+      - idVacina
+    properties:
+      idPaciente:
+        type: integer
+        format: int64
+        description: "Id do paciente"
+      idVacina:
+        type: integer
+        format: int64
+        description: "Id da vacina"
+
+
+
+
+
+
+
+
+
+
+
+
+
+

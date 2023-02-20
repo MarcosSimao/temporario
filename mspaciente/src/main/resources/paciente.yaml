@@ -1,0 +1,108 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "api de paciente"
+  description: "Tem como objetivo salvar paciente e manipular dados"
+host: "localhost:8081"
+schemes:
+  - https
+tags:
+  - name: "PacienteController"
+paths:
+  /paciente:
+    get:
+      tags:
+        - "PacienteController"
+      summary: "buscar paciente por cpf"
+      operationId: "findByCpf"
+      produces:
+        - application/json
+      description: "Esta operação tem como objetivo buscar paciente por cpf"
+      parameters:
+        - in: "header"
+          name: "cpf"
+          type: "string"
+          required: true
+          description: "cpf do paciente"
+      responses:
+        200:
+          description: "ok"
+          schema:
+            $ref: "#/definitions/PacienteDTO"
+        400:
+          description: "Consulta inválida"
+        401:
+          description: "Não foi possível credenciais para autenticação inválida"
+        404:
+          description: "Paciente não encontrado"
+        500:
+          description: "Erro interno"
+    post:
+      tags:
+        - "PacienteController"
+      summary:
+        "Cadastrar um paciente"
+      operationId: "save"
+      produces:
+        - application/json
+      description:
+        "Esta opracao tem como objetivo cadastrar um paciente"
+      parameters:
+        - in: "body"
+          name: "pacienteRequest"
+          required: true
+          description: "Cadastrar"
+          schema:
+            $ref: "#/definitions/PacienteRequest"
+      responses:
+        201:
+          description: "create"
+        400:
+          description: "Consulta inválida"
+        401:
+          description: "Não foi possível credenciais para autenticação inválida"
+        404:
+          description: "Vacina não encontrada"
+        500:
+          description: "Erro interno"
+definitions:
+  PacienteDTO:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: "Identificador do paciente"
+      cpf:
+        type: "string"
+        description: "CPF do paciente"
+      endereco:
+        type: "string"
+        description: "Endereco do paciente"
+      nomePaciente:
+        type: "string"
+        description: "Nome do paciente"
+  PacienteRequest:
+    type: object
+    properties:
+      cpf:
+        type: string
+        description: "CPF do paciente"
+      endereco:
+        type: string
+        description: "Endereco do paciente"
+      nomePaciente:
+        type: string
+        description: "Nome do paciente"
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
